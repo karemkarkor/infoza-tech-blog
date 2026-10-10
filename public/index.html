@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A thoughtful place for stories, ideas, and conversation.">
+  <title>Commonplace — stories worth sharing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="utility-bar">
+    <div class="utility-inner"><span>Ideas are better when shared.</span><span>Read something. Write something.</span></div>
+  </div>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Commonplace home"><span class="brand-mark">C</span><span>commonplace<span class="brand-dot">.</span></span></a>
+    <nav class="main-nav" aria-label="Main navigation"><a href="#stories">Stories</a><a href="#about">About</a></nav>
+    <nav class="header-actions" aria-label="Account">
+      <span id="welcome" class="welcome" hidden></span>
+      <button id="new-post-button" class="button button-primary" hidden>Write a story <span aria-hidden="true">↗</span></button>
+      <button id="login-button" class="button button-quiet">Log in</button>
+      <button id="signup-button" class="button button-outline">Join us</button>
+      <button id="logout-button" class="button button-quiet" hidden>Log out</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy-block">
+        <p class="eyebrow"><span class="eyebrow-line"></span> A journal for curious minds</p>
+        <h1>Good ideas<br><em>travel far.</em></h1>
+        <p class="hero-copy">Stories, notes, and perspectives from people who see the world a little differently.</p>
+        <form id="search-form" class="search-box" role="search">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="Find a story or topic…" aria-label="Search posts">
+          <button type="submit" aria-label="Search">Search <span aria-hidden="true">↗</span></button>
+        </form>
+      </div>
+      <aside class="hero-art" aria-label="An invitation to share a story">
+        <p class="hero-art-label">An open invitation <span>01 / 03</span></p>
+        <span class="hero-art-mark" aria-hidden="true">✳</span>
+        <div class="hero-art-caption"><span>Make room for a new point of view.</span><a href="#stories">Explore the stories <span aria-hidden="true">↘</span></a></div>
+      </aside>
+    </section>
+
+    <section id="stories" class="stories-section" aria-labelledby="stories-heading">
+      <div class="section-heading">
+        <div><p class="eyebrow eyebrow-small">The latest</p><h2 id="stories-heading">Stories from the community</h2></div>
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div id="status-message" class="status-message" role="status" hidden></div>
+      <div id="posts-grid" class="posts-grid" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state" hidden><span>✳</span><h3>No stories found</h3><p>Try another search, or be the first to share a story.</p></div>
+    </section>
+  </main>
+
+  <footer id="about" class="site-footer"><a class="brand brand-footer" href="/">commonplace<span class="brand-dot">.</span></a><span>Make space for a good story.</span></footer>
+
+  <dialog id="auth-dialog" class="dialog">
+    <button class="dialog-close" data-close="auth-dialog" aria-label="Close">×</button>
+    <p class="eyebrow eyebrow-small">Your corner of the conversation</p><h2 id="auth-title">Welcome back</h2>
+    <div class="auth-tabs"><button class="auth-tab active" data-mode="login">Log in</button><button class="auth-tab" data-mode="register">Create account</button></div>
+    <form id="auth-form" class="form-stack">
+      <label id="name-field" hidden>Your name<input name="name" autocomplete="name" minlength="2" maxlength="80"></label>
+      <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="72"></label>
+      <p class="form-error" id="auth-error" role="alert" hidden></p>
+      <button class="button button-primary button-full" type="submit">Log in <span>↗</span></button>
+    </form>
+  </dialog>
+
+  <dialog id="post-dialog" class="dialog dialog-wide">
+    <button class="dialog-close" data-close="post-dialog" aria-label="Close">×</button>
+    <p class="eyebrow eyebrow-small" id="post-form-kicker">From your notebook</p><h2 id="post-form-title">Write a story</h2>
+    <form id="post-form" class="form-stack">
+      <label>Title<input name="title" required minlength="3" maxlength="160" placeholder="A title that draws us in"></label>
+      <label>Your story<textarea name="content" required maxlength="30000" rows="12" placeholder="Start with a thought…"></textarea></label>
+      <p class="form-error" id="post-error" role="alert" hidden></p>
+      <button class="button button-primary button-full" type="submit">Publish story <span>↗</span></button>
+    </form>
+  </dialog>
+
+  <dialog id="story-dialog" class="dialog dialog-story">
+    <button class="dialog-close" data-close="story-dialog" aria-label="Close">×</button>
+    <article id="story-content"></article>
+    <section class="comments-section">
+      <div class="comments-heading"><h3>Conversation</h3><span id="comment-count"></span></div>
+      <div id="comments-list" class="comments-list"></div>
+      <form id="comment-form" class="comment-form">
+        <label for="comment-input" class="visually-hidden">Add a comment</label>
+        <textarea id="comment-input" name="content" rows="3" maxlength="3000" placeholder="Add a thoughtful response…" required></textarea>
+        <p class="form-error" id="comment-error" role="alert" hidden></p>
+        <button class="button button-primary" type="submit">Respond <span>↗</span></button>
+      </form>
+      <p id="comment-login-prompt" class="comment-prompt" hidden><button class="text-button" id="comment-login-button">Log in</button> to join the conversation.</p>
+    </section>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "blog-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A small MVC blog application with Express, Prisma, and PostgreSQL",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:studio": "prisma studio"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": { "nodemon": "^3.1.10", "prisma": "^6.16.2" }
+}
